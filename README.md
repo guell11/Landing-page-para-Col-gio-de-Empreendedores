@@ -49,8 +49,6 @@ A landing page apresenta a instituição de forma clara, destacando seus pilares
 - CSS3
 - JavaScript
 
-> Caso você tenha usado outra tecnologia, como React, Tailwind CSS ou Vite, atualize esta seção. Porque sim, README também precisa contar a verdade, infelizmente.
-
 ## 📱 Responsividade
 
 A página foi pensada para funcionar em diferentes tamanhos de tela, oferecendo uma boa experiência tanto em computadores quanto em dispositivos móveis.
