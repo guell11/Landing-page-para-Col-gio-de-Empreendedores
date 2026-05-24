@@ -276,7 +276,7 @@ button, input, select {
   margin: 0;
   color: var(--ink); /* Ardósia escuro premium em vez de verde-escuro */
   font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 64px; /* Aumentado sutilmente para maior imponência */
+  font-size: 56px !important; /* Reduzido de 64px para evitar colisão com a imagem */
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -297,7 +297,7 @@ button, input, select {
   width: 330px;
   margin: 46px 0 0;
   color: #64748b; /* Cinza aço suave e sofisticado */
-  font-size: 30px;
+  font-size: 26px !important; /* Reduzido de 30px para respiro premium */
   font-weight: 400;
   line-height: 1.6;
 }
@@ -339,8 +339,8 @@ button, input, select {
   position: absolute;
   z-index: 2;
   top: 178px;
-  left: 310px;
-  width: 600px;
+  left: 360px !important; /* Afastado para a direita de 310px para evitar sobreposição */
+  width: 580px !important; /* Reduzido de 600px para caber perfeitamente */
   pointer-events: none;
 }
 
@@ -3528,34 +3528,247 @@ body.menu-open .menu-panel {
    FOOTER & COMPONENTES COMPLEMENTARES
    ========================================================================== */
 
+/* FOOTER PREMIUM DECENTE DE ALTO IMPACTO */
 .site-footer {
-  padding: 56px 24px;
-  background: var(--green-dark);
-  color: #fff;
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 80px 24px 40px !important;
+  background: radial-gradient(circle at center, #062f25 0%, #02120e 100%) !important;
+  color: #ffffff !important;
+  text-align: left !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.1) !important;
+  position: relative;
+  overflow: hidden;
 }
 
-.site-footer img {
-  width: 58px;
-  height: auto;
-  margin: 0 auto 16px;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.25), transparent);
 }
 
-.site-footer p {
-  margin-bottom: 6px;
+.footer-grid-v2 {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 768px) {
+  .footer-grid-v2 {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 32px;
+  }
+}
+
+.footer-col-v2 h4 {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin: 0 0 20px 0;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  display: inline-block;
 }
 
-.site-footer span {
-  color: #a7f3d0;
+.footer-col-v2 h4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 24px;
+  height: 2px;
+  background: var(--green);
+  border-radius: 99px;
+}
+
+/* Coluna 1: Marca */
+.footer-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 52px !important;
+  height: 50px !important;
+  margin: 0 !important;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15)) !important;
+  border-radius: 12px !important;
+}
+
+.footer-brand-name {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.footer-tagline {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 24px !important;
+  font-family: "Inter", sans-serif !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+}
+
+.footer-socials-v2 {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social-link {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-social-link:hover {
+  background: var(--green);
+  border-color: var(--green);
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+}
+
+.footer-social-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Links & Contatos */
+.footer-links-v2 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links-v2 a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
   font-size: 13.5px;
-  opacity: 0.85;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  font-weight: 500;
+}
+
+.footer-links-v2 a:hover {
+  color: var(--green);
+  padding-left: 4px;
+}
+
+.footer-contacts-v2 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-contacts-v2 li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-contacts-v2 a {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.6) !important;
+  text-decoration: none !important;
+  font-size: 13.5px !important;
+  transition: color 0.2s ease !important;
+}
+
+.footer-contacts-v2 a:hover {
+  color: var(--green) !important;
+}
+
+.footer-contact-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+}
+
+.footer-contacts-v2 svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Bottom Bar */
+.footer-bottom-v2 {
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-v2 {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footer-bottom-v2 p {
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-size: 12.5px !important;
+  font-family: "Inter", sans-serif !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  margin-bottom: 0 !important;
+}
+
+.footer-dev-credit {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 12.5px !important;
+}
+
+.footer-dev-credit a {
+  color: var(--green) !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-block !important;
+}
+
+.footer-dev-credit a:hover {
+  color: var(--gold) !important;
+  transform: translateY(-1px) !important;
 }
 
 /* Whatsapp Floating Pulsante */

@@ -3,8 +3,8 @@
    Premium Interactive Logic
    ========================================================================== */
 
-const CONTACT_EMAIL = "matriculas@colegiodeempreendedores.com";
-const WHATSAPP_NUMBER = "5500000000000"; // Placeholder para o número de WhatsApp do cliente
+const CONTACT_EMAIL = "Escoladeempreendedores2026@gmail.com";
+const WHATSAPP_NUMBER = "558197089334"; // Número de WhatsApp oficial do cliente
 const WHATSAPP_MESSAGE = "Olá! Gostaria de obter mais informações sobre as turmas e as matrículas do Colégio de Empreendedores.";
 
 // Seletores Globais
@@ -36,7 +36,7 @@ function updateStageScale() {
   // Fórmula matemática original de escala baseada no designSize
   const widthScale = Math.min(viewportWidth, designSize.width) / designSize.width;
   const heightScale = Math.min(viewportHeight, designSize.height) / designSize.height;
-  const scale = Math.min(widthScale, heightScale);
+  const scale = viewportWidth < 900 ? widthScale : Math.min(widthScale, heightScale);
   
   const visibleDesignHeight = viewportHeight / scale;
   const extraHeight = Math.max(0, visibleDesignHeight - designSize.height);
