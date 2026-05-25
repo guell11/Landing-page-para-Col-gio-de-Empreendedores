@@ -3900,6 +3900,28 @@ body.menu-open .menu-panel {
   border: none;
 }
 
+/* Modal video wrapper with dynamic aspect ratio preservation */
+.modal-video-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000000;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.modal-video-wrapper video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
 /* ==========================================================================
    MEDIA QUERIES COMPLEMENTARES E RESPONSIVIDADE PEQUENA
    ========================================================================== */
@@ -4816,3 +4838,178 @@ body.menu-open .menu-panel {
     font-weight: 600 !important;
   }
 }
+
+/* ==========================================================================
+   IMPACTO VIDEO BANNER (BRASIL & ÁFRICA SECTION)
+   ========================================================================== */
+.impacto-video-banner {
+  position: relative;
+  background: linear-gradient(135deg, #021a14 0%, #010806 100%);
+  border: 1.5px solid rgba(16, 185, 129, 0.2);
+  border-radius: 32px;
+  padding: 28px 24px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.08);
+  margin-top: 32px;
+  margin-bottom: 32px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.impacto-video-banner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.5), 0 0 50px rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* Glowing Background Decors */
+.impacto-video-banner-glow-1 {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.impacto-video-banner-glow-2 {
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.impacto-video-banner-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .impacto-video-banner {
+    padding: 44px 48px;
+    margin-top: 44px;
+    margin-bottom: 44px;
+  }
+  .impacto-video-banner-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+}
+
+/* Left Text Column */
+.impacto-video-banner-text-col {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.impacto-video-banner-tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #10b981;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: fit-content;
+  margin-bottom: 16px;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+}
+
+.impacto-video-banner-text-col h3 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 600px) {
+  .impacto-video-banner-text-col h3 {
+    font-size: 28px;
+  }
+}
+
+.impacto-video-banner-text-col p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13.5px;
+  line-height: 1.55;
+  margin: 0 0 20px 0;
+}
+
+@media (min-width: 600px) {
+  .impacto-video-banner-text-col p {
+    font-size: 14.5px;
+    margin: 0 0 24px 0;
+  }
+}
+
+/* Metadata Items */
+.impacto-video-banner-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.meta-item svg {
+  width: 15px;
+  height: 15px;
+  color: #10b981;
+}
+
+/* Right Video Column */
+.impacto-video-banner-video-col {
+  flex: 1.1;
+  width: 100%;
+}
+
+.impacto-video-banner-player-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000000;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.impacto-video-banner-player-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+

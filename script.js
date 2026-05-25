@@ -146,17 +146,20 @@ function setupAnchorLinks() {
  * Gera URLs dinâmicas para todos os botões que acionam o WhatsApp
  */
 function setupWhatsAppLinks() {
-  const queryText = encodeURIComponent(WHATSAPP_MESSAGE);
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${queryText}`;
-
   document.querySelectorAll("[data-whatsapp]").forEach((link) => {
+    const customMsg = link.getAttribute("data-whatsapp-message");
+    const msg = customMsg ? customMsg : WHATSAPP_MESSAGE;
+    const queryText = encodeURIComponent(msg);
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${queryText}`;
+
     link.setAttribute("href", url);
     link.setAttribute("target", "_blank");
     link.setAttribute("rel", "noopener noreferrer");
     
-    // Suporta cliques em botões normais convertidos para WhatsApp
+    // Suporta cliques em botões ou outras tags não-ancoradas
     if (link.tagName === "BUTTON") {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
         window.open(url, "_blank", "noopener,noreferrer");
       });
     }
@@ -183,37 +186,72 @@ function switchTargetTab(idx) {
  * Gerenciamento do Modal Premium de Vídeo Institucional
  */
 const videoModal = document.getElementById("video-modal");
-let modalIframe = null;
-let originalVideoSrc = "";
+let modalVideo = null;
 
 if (videoModal) {
-  modalIframe = videoModal.querySelector("iframe");
-  if (modalIframe) {
-    originalVideoSrc = modalIframe.src;
-  }
+  modalVideo = videoModal.querySelector("video");
 }
 
 function openVideoModal() {
-  if (!videoModal || !modalIframe) {
+  if (!videoModal) {
     return;
   }
   videoModal.classList.add("is-active");
   videoModal.setAttribute("aria-hidden", "false");
-  // Ativa autoplay ao carregar
-  modalIframe.src = originalVideoSrc + "&autoplay=1";
+  if (modalVideo) {
+    modalVideo.currentTime = 0;
+    // Força o carregamento do vídeo local e inicia a reprodução de forma segura
+    modalVideo.load();
+    const playPromise = modalVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.log("Autoplay barrado ou falha no carregamento. Aguardando clique do usuário:", err);
+      });
+    }
+  }
 }
 
 function closeVideoModal() {
-  if (!videoModal || !modalIframe) {
+  if (!videoModal) {
     return;
   }
   videoModal.classList.remove("is-active");
   videoModal.setAttribute("aria-hidden", "true");
-  // Zera o src temporariamente para pausar o som do iframe do YouTube
-  modalIframe.src = "";
-  window.setTimeout(() => {
-    modalIframe.src = originalVideoSrc;
-  }, 150);
+  if (modalVideo) {
+    modalVideo.pause();
+  }
+}
+
+// Configuração robusta de Event Listeners para evitar bloqueios de escopo ou CSP
+function setupVideoModalListeners() {
+  const videoTrigger = document.querySelector(".video-banner");
+  const modalCloseBtn = document.querySelector(".premium-modal__close");
+  const modalOverlay = document.querySelector(".premium-modal__overlay");
+
+  if (videoTrigger) {
+    // Removemos qualquer listener anterior e adicionamos o novo
+    videoTrigger.removeAttribute("onclick");
+    videoTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      openVideoModal();
+    });
+  }
+
+  if (modalCloseBtn) {
+    modalCloseBtn.removeAttribute("onclick");
+    modalCloseBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeVideoModal();
+    });
+  }
+
+  if (modalOverlay) {
+    modalOverlay.removeAttribute("onclick");
+    modalOverlay.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeVideoModal();
+    });
+  }
 }
 
 /**
@@ -295,6 +333,7 @@ setupAnchorLinks();
 setupWhatsAppLinks();
 setupEnrollmentForm();
 setupScrollAnimations();
+setupVideoModalListeners();
 
 // Expor funções globais para ações inline de botões HTML
 window.switchTargetTab = switchTargetTab;
